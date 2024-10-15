@@ -1,17 +1,22 @@
 from fastapi import Depends
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import get_async_session
-from app import models
+from app.models import Product
 
 
 class ProductRepo:
     def __init__(self, session: AsyncSession = Depends(get_async_session)):
         self._session = session
 
-    async def create(self, data: dict) -> models.Product:
-        db_obj = models.Product(**data)
+    async def create(self, data: dict) -> Product:
+        db_obj = Product(**data)
         self._session.add(db_obj)
         await self._session.commit()
         await self._session.refresh(db_obj)
         return db_obj
+
+    async def get_all(self) -> list[Product]:
+        db_objs = await self._session.scalars(select(Product))
+        return db_objs.all()

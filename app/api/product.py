@@ -17,3 +17,14 @@ async def create_product(
     product_service: ProductService = Depends(ProductService),
 ) -> models.Product:
     return await product_service.create(request_body)
+
+
+@router.get(
+    '',
+    response_model=list[schemas.CreateProductResponse],
+    response_model_exclude_none=True,
+)
+async def list_products(
+    product_service: ProductService = Depends(ProductService),
+) -> list[models.Product]:
+    return await product_service.get_all()
