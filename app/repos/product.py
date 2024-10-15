@@ -21,5 +21,8 @@ class ProductRepo:
         db_objs = await self._session.scalars(select(Product))
         return db_objs.all()
 
-    async def get(self, id_: int) -> Product | None:
-        return await self._session.get(Product, id_)
+    async def get(self, id: int) -> Product | None:
+        return await self._session.get(Product, id)
+
+    async def get_or_error(self, id: int) -> Product:
+        return await self._session.get_one(Product, id)

@@ -1,6 +1,4 @@
-from http import HTTPStatus
-
-from fastapi import Depends, HTTPException
+from fastapi import Depends
 
 from app.models import Product
 from app.repos import ProductRepo
@@ -19,12 +17,5 @@ class ProductService:
     async def get_all(self) -> list[Product]:
         return await self._repo.get_all()
 
-    async def get_or_error(self, id_: int) -> Product:
-        obj = await self._repo.get(id_)
-        if obj is None:
-            raise HTTPException(
-                status_code=HTTPStatus.NOT_FOUND,
-                detail='Объект не найден!'
-            )
-
-        return obj
+    async def get_or_error(self, id: int) -> Product:
+        return await self._repo.get_or_error(id)
