@@ -26,3 +26,10 @@ class ProductRepo:
 
     async def get_or_error(self, id: int) -> Product:
         return await self._session.get_one(Product, id)
+
+    async def update(self, id: int, data_for_update: dict) -> Product:
+        db_obj = await self.get_or_error(id)
+        await self._session.merge(Product(id=db_obj.id, **data_for_update))
+        await self._session.commit()
+        await self._session.refresh(db_obj)
+        return db_obj

@@ -19,3 +19,10 @@ class ProductService:
 
     async def get_or_error(self, id: int) -> Product:
         return await self._repo.get_or_error(id)
+
+    async def update(
+        self, id: int, data_for_update: schemas.UpdateProductRequest
+    ) -> Product:
+        return await self._repo.update(
+            id, data_for_update.model_dump(exclude_none=True)
+        )

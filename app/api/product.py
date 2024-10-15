@@ -40,3 +40,16 @@ async def get_product(
     product_service: ProductService = Depends(ProductService),
 ) -> models.Product:
     return await product_service.get_or_error(id)
+
+
+@router.put(
+    '/{id}',
+    response_model=schemas.UpdateProductResponse,
+    response_model_exclude_none=True,
+)
+async def update_product(
+    id: int,
+    request_body: schemas.UpdateProductRequest,
+    product_service: ProductService = Depends(ProductService),
+) -> models.Product:
+    return await product_service.update(id, request_body)
