@@ -28,3 +28,15 @@ async def list_products(
     product_service: ProductService = Depends(ProductService),
 ) -> list[models.Product]:
     return await product_service.get_all()
+
+
+@router.get(
+    '/{id}',
+    response_model=schemas.GetProductResponse,
+    response_model_exclude_none=True,
+)
+async def get_product(
+    id: int,
+    product_service: ProductService = Depends(ProductService),
+) -> models.Product:
+    return await product_service.get_or_error(id)

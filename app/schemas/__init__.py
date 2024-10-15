@@ -1,3 +1,7 @@
-from .product import CreateProductRequest, CreateProductResponse
+from .product import (
+    CreateProductRequest, CreateProductResponse, GetProductResponse
+)
 
-__all__ = ('CreateProductRequest', 'CreateProductResponse')
+__all__ = (
+    'CreateProductRequest', 'CreateProductResponse', 'GetProductResponse'
+)
