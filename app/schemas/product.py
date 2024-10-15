@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, RootModel
 
 from app.core.constants import MAX_PRODUCT_NAME_LENGTH
 
@@ -19,12 +19,20 @@ class BaseProduct(BaseModel):
     amount: ProductAmount
 
 
+class FullProduct(BaseProduct):
+    id: int
+
+
 class CreateProductRequest(BaseProduct):
     pass
 
 
-class CreateProductResponse(BaseProduct):
-    id: int
+class CreateProductResponse(FullProduct):
+    pass
+
+
+class ListProductsResponse(RootModel):
+    root: list[FullProduct]
 
 
 class GetProductResponse(BaseProduct):

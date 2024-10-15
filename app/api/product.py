@@ -23,7 +23,7 @@ async def create_product(
 
 @router.get(
     '',
-    response_model=list[schemas.CreateProductResponse],
+    response_model=schemas.ListProductsResponse,
     response_model_exclude_none=True,
 )
 async def list_products(
