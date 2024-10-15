@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from fastapi import APIRouter, Depends
 
 from app import models
@@ -53,3 +55,15 @@ async def update_product(
     product_service: ProductService = Depends(ProductService),
 ) -> models.Product:
     return await product_service.update(id, request_body)
+
+
+@router.delete(
+    '/{id}',
+    response_model=None,
+    status_code=HTTPStatus.NO_CONTENT,
+)
+async def delete_product(
+    id: int,
+    product_service: ProductService = Depends(ProductService),
+) -> None:
+    return await product_service.delete(id)

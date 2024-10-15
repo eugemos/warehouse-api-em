@@ -33,3 +33,8 @@ class ProductRepo:
         await self._session.commit()
         await self._session.refresh(db_obj)
         return db_obj
+
+    async def delete(self, id: int) -> None:
+        db_obj = await self.get_or_error(id)
+        await self._session.delete(db_obj)
+        await self._session.commit()

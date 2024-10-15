@@ -26,3 +26,6 @@ class ProductService:
         return await self._repo.update(
             id, data_for_update.model_dump(exclude_none=True)
         )
+
+    async def delete(self, id: int) -> None:
+        await self._repo.delete(id)
