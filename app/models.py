@@ -5,6 +5,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql import func
 
 from app.core.types import OrderStatus
+from app.core.constants import MAX_PRODUCT_NAME_LENGTH
 
 
 class Base(DeclarativeBase):
@@ -14,7 +15,7 @@ class Base(DeclarativeBase):
 class Product(Base):
     __tablename__ = 'product'
 
-    name: Mapped[str] = mapped_column(String(256))
+    name: Mapped[str] = mapped_column(String(MAX_PRODUCT_NAME_LENGTH))
     description: Mapped[str | None] = mapped_column(Text)
     price: Mapped[int]
     amount: Mapped[int]
