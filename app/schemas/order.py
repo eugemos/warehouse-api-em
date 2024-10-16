@@ -1,5 +1,6 @@
-from pydantic import BaseModel
+from datetime import datetime
 
+from pydantic import BaseModel
 
 from app.core.types import OrderStatus
 from .order_item import OrderItem
@@ -11,6 +12,7 @@ class BaseOrder(BaseModel):
 
 class FullOrder(BaseOrder):
     id: int
+    created_at: datetime
     status: OrderStatus
 
 
