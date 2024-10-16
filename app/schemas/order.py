@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 from app.core.types import OrderStatus
 from .order_item import OrderItem
@@ -22,3 +22,7 @@ class CreateOrderRequest(BaseOrder):
 
 class CreateOrderResponse(FullOrder):
     pass
+
+
+class ListOrdersResponse(RootModel):
+    root: list[FullOrder]

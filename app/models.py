@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import ForeignKey, String, Text
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 
 from app.core.types import OrderStatus
@@ -28,6 +28,7 @@ class Order(Base):
         server_default=func.current_timestamp()
     )
     status: Mapped[OrderStatus]
+    items: Mapped[list['OrderItem']] = relationship(lazy='joined')
 
 
 class OrderItem(Base):

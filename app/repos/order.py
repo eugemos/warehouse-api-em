@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import insert
+from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.types import OrderStatus
@@ -24,3 +24,7 @@ class OrderRepo:
         await self._session.commit()
         await self._session.refresh(order)
         return order
+
+    async def get_all(self) -> list[Order]:
+        db_objs = await self._session.scalars(select(Order))
+        return db_objs.unique().all()

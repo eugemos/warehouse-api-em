@@ -1,4 +1,4 @@
-from http import HTTPStatus
+# from http import HTTPStatus
 
 from fastapi import APIRouter, Depends
 
@@ -18,3 +18,13 @@ async def create_order(
     order_service: OrderService = Depends(OrderService),
 ):
     return await order_service.create(request_body)
+
+
+@router.get(
+    '',
+    response_model=schemas.ListOrdersResponse,
+)
+async def list_orders(
+    order_service: OrderService = Depends(OrderService),
+) -> list[models.Order]:
+    return await order_service.get_all()

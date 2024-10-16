@@ -4,6 +4,7 @@ from fastapi import Depends, HTTPException
 
 from app import schemas
 from app.core.types import OrderStatus
+from app.models import Order
 from app.repos import OrderRepo, ProductRepo
 
 
@@ -52,3 +53,6 @@ class OrderService:
             id=order.id, created_at=order.created_at, status=order.status,
             items=items_data
         )
+
+    async def get_all(self) -> list[Order]:
+        return await self._order_repo.get_all()
