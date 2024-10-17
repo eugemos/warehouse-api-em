@@ -56,3 +56,6 @@ class OrderService:
 
     async def get_all(self) -> list[Order]:
         return await self._order_repo.get_all()
+
+    async def get_or_error(self, id: int) -> Order:
+        return await self._order_repo.get_or_error(id)

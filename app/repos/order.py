@@ -28,3 +28,6 @@ class OrderRepo:
     async def get_all(self) -> list[Order]:
         db_objs = await self._session.scalars(select(Order))
         return db_objs.unique().all()
+
+    async def get_or_error(self, id: int) -> Order:
+        return await self._session.get_one(Order, id)

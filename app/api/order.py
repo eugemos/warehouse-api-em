@@ -28,3 +28,14 @@ async def list_orders(
     order_service: OrderService = Depends(OrderService),
 ) -> list[models.Order]:
     return await order_service.get_all()
+
+
+@router.get(
+    '/{id}',
+    response_model=schemas.GetOrderResponse,
+)
+async def get_order(
+    id: int,
+    order_service: OrderService = Depends(OrderService),
+) -> models.Order:
+    return await order_service.get_or_error(id)

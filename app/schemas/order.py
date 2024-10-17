@@ -26,3 +26,8 @@ class CreateOrderResponse(FullOrder):
 
 class ListOrdersResponse(RootModel):
     root: list[FullOrder]
+
+
+class GetOrderResponse(BaseOrder):
+    created_at: datetime
+    status: OrderStatus
