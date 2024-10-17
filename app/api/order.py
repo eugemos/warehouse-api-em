@@ -1,4 +1,4 @@
-# from http import HTTPStatus
+from http import HTTPStatus
 
 from fastapi import APIRouter, Body, Depends
 
@@ -12,7 +12,8 @@ router = APIRouter()
 
 @router.post(
     '',
-    response_model=schemas.CreateOrderResponse
+    status_code=HTTPStatus.CREATED,
+    response_model=schemas.CreateOrderResponse,
 )
 async def create_order(
     request_body: schemas.CreateOrderRequest,

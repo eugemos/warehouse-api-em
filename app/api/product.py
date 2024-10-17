@@ -11,6 +11,7 @@ router = APIRouter()
 
 @router.post(
     '',
+    status_code=HTTPStatus.CREATED,
     response_model=schemas.CreateProductResponse,
     response_model_exclude_none=True,
 )
@@ -59,8 +60,8 @@ async def update_product(
 
 @router.delete(
     '/{id}',
-    response_model=None,
     status_code=HTTPStatus.NO_CONTENT,
+    response_model=None,
 )
 async def delete_product(
     id: int,
