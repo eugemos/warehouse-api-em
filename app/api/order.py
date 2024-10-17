@@ -1,9 +1,10 @@
 # from http import HTTPStatus
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Body, Depends
 
 from app import models
 from app import schemas
+from app.core.types import OrderStatus
 from app.services import OrderService
 
 router = APIRouter()
@@ -39,3 +40,15 @@ async def get_order(
     order_service: OrderService = Depends(OrderService),
 ) -> models.Order:
     return await order_service.get_or_error(id)
+
+
+@router.patch(
+    '/{id}/status',
+    response_model=schemas.GetOrderResponse,
+)
+async def update_order_state(
+    id: int,
+    new_status: OrderStatus = Body(),
+    order_service: OrderService = Depends(OrderService),
+) -> models.Order:
+    return await order_service.update_status(id, new_status)

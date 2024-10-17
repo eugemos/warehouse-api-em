@@ -59,3 +59,10 @@ class OrderService:
 
     async def get_or_error(self, id: int) -> Order:
         return await self._order_repo.get_or_error(id)
+
+    async def update_status(
+        self, id: int, new_status: OrderStatus
+    ) -> Order:
+        return await self._order_repo.update(
+            id, dict(status=new_status)
+        )

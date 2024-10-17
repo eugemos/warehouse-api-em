@@ -1,6 +1,6 @@
 from .order import (
     CreateOrderRequest, CreateOrderResponse, GetOrderResponse,
-    ListOrdersResponse
+    ListOrdersResponse, UpdateOrderStatusResponse
 )
 from .product import (
     CreateProductRequest, CreateProductResponse, GetProductResponse,
@@ -9,7 +9,7 @@ from .product import (
 
 __all__ = (
     'CreateOrderRequest', 'CreateOrderResponse', 'GetOrderResponse',
-    'ListOrdersResponse',
+    'ListOrdersResponse', 'UpdateOrderStatusResponse',
     'CreateProductRequest', 'CreateProductResponse', 'GetProductResponse',
     'ListProductsResponse', 'UpdateProductRequest', 'UpdateProductResponse'
 )

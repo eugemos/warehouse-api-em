@@ -31,3 +31,6 @@ class ListOrdersResponse(RootModel):
 class GetOrderResponse(BaseOrder):
     created_at: datetime
     status: OrderStatus
+
+
+UpdateOrderStatusResponse = GetOrderResponse
