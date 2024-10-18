@@ -12,7 +12,7 @@ class ProductService:
     async def create(
         self, data: schemas.CreateProductRequest
     ) -> Product:
-        return await self._repo.create(data.dict())
+        return await self._repo.create(data.model_dump())
 
     async def get_all(self) -> list[Product]:
         return await self._repo.get_all()
