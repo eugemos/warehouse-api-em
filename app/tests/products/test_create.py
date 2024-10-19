@@ -1,23 +1,15 @@
 from http import HTTPStatus
 from typing import Any
 
-from httpx import ASGITransport, AsyncClient
+from httpx import AsyncClient
 import pytest
 from sqlalchemy import select
 
 from app.core.db import AsyncSessionLocal
-from app.main import app
 from app.models import Product
 from app import schemas
 
 pytestmark = pytest.mark.anyio
-
-
-@pytest.fixture
-def async_client() -> AsyncClient:
-    return AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    )
 
 
 class TestCreate:
