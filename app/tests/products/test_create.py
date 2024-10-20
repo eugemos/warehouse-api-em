@@ -9,10 +9,12 @@ from app.core.db import AsyncSessionLocal
 from app.models import Product
 from app import schemas
 
+from ..base import EndpointTestCase
+
 pytestmark = pytest.mark.anyio
 
 
-class TestCreate:
+class TestCreate(EndpointTestCase):
     REQUEST_DATA = dict(
         name='Product',
         description='Description',
@@ -87,11 +89,10 @@ class TestCreate:
         async_client: AsyncClient,
         request_data: dict,
         exp_status: HTTPStatus,
-    ):
-        async with async_client as client:
-            response = await client.post("/products", json=request_data)
-
-        assert response.status_code == exp_status
+    ) -> Any:
+        response = await super()._do_request_and_check_response(
+            async_client, 'post', '/products', exp_status, json=request_data
+        )
         return response.json()
 
     async def _check_product_created_in_db(self) -> dict:
