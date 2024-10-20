@@ -27,7 +27,7 @@ class TestGet(EndpointTestCase):
         )
         assert response_data == exp_response_data
 
-    async def test_get_request_to_nonexistent_id_ok(
+    async def test_get_request_to_nonexistent_id_fails(
         self, async_client: AsyncClient
     ):
         await self._do_request_and_check_response(
