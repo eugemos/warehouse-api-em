@@ -18,7 +18,9 @@ class ProductRepo:
         return db_obj
 
     async def get_all(self) -> list[Product]:
-        db_objs = await self._session.scalars(select(Product))
+        db_objs = await self._session.scalars(
+            select(Product).order_by(Product.id)
+        )
         return db_objs.all()
 
     async def get(self, id: int) -> Product | None:
