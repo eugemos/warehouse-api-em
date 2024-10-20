@@ -45,6 +45,8 @@ class UpdateProductRequest(BaseModel):
     price: ProductPrice | None = None
     amount: ProductAmount | None = None
 
+    model_config = dict(extra='forbid')
+
 
 class UpdateProductResponse(BaseProduct):
     pass
