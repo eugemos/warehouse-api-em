@@ -9,18 +9,14 @@ from app.core.db import AsyncSessionLocal
 from app.models import Product
 from app import schemas
 
-from ..base import EndpointTestCase
+from ..conftest import EndpointTestCase
+from .conftest import create_product_data
 
 pytestmark = pytest.mark.anyio
 
 
 class TestCreate(EndpointTestCase):
-    REQUEST_DATA = dict(
-        name='Product',
-        description='Description',
-        price=1,
-        amount=10,
-    )
+    REQUEST_DATA = create_product_data('')
 
     async def test_correct_full_request_creates_product(
         self, async_client: AsyncClient
