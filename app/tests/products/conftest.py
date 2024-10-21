@@ -4,6 +4,8 @@ from sqlalchemy import insert
 from app.core.db import AsyncSessionLocal
 from app.models import Product
 
+FIXTURE_PRODUCTS_COUNT = 3
+
 
 def create_product_data(n: int | str, **kvargs):
     return dict(
@@ -17,7 +19,8 @@ def create_product_data(n: int | str, **kvargs):
 
 def create_fixture_products_data():
     data = [
-        create_product_data(i, id=i) for i in range(1, 4)
+        create_product_data(i, id=i)
+        for i in range(1, FIXTURE_PRODUCTS_COUNT + 1)
     ]
     del data[1]['description']
     return data
