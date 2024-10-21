@@ -34,6 +34,8 @@ class Order(Base):
 class OrderItem(Base):
     __tablename__ = 'order_item'
 
-    product_id: Mapped[int] = mapped_column(ForeignKey('product.id'))
+    product_id: Mapped[int] = mapped_column(
+        ForeignKey('product.id', ondelete='restrict')
+    )
     order_id: Mapped[int] = mapped_column(ForeignKey('order.id'))
     amount: Mapped[int]
