@@ -1,9 +1,9 @@
 from fastapi import Depends
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import get_async_session
-from app.models import Product
+from app.models import Product, OrderItem
 
 
 class ProductRepo:
@@ -40,3 +40,11 @@ class ProductRepo:
         db_obj = await self.get_or_error(id)
         await self._session.delete(db_obj)
         await self._session.commit()
+
+    async def any_order_exists(self, id) -> bool:
+        order_count = await self._session.scalar(
+            select(func.count('*'))
+            .select_from(OrderItem)
+            .where(OrderItem.product_id == id)
+        )
+        return order_count > 0

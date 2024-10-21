@@ -1,4 +1,6 @@
-from fastapi import Depends
+from http import HTTPStatus
+
+from fastapi import Depends, HTTPException
 
 from app.models import Product
 from app.repos import ProductRepo
@@ -28,4 +30,10 @@ class ProductService:
         )
 
     async def delete(self, id: int) -> None:
+        if await self._repo.any_order_exists(id):
+            raise HTTPException(
+                status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
+                detail='Этот товар входит в заказы, его нельзя удалить.'
+            )
+
         await self._repo.delete(id)
