@@ -9,10 +9,12 @@ from app.core.constants import MAX_PRODUCT_NAME_LENGTH
 
 
 class Base(DeclarativeBase):
+    """База для отображённых (mapped) классов."""
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
 
 class Product(Base):
+    """Товар (mapped class)."""
     __tablename__ = 'product'
 
     name: Mapped[str] = mapped_column(String(MAX_PRODUCT_NAME_LENGTH))
@@ -22,6 +24,7 @@ class Product(Base):
 
 
 class Order(Base):
+    """Заказ (mapped class)."""
     __tablename__ = 'order'
 
     created_at: Mapped[datetime] = mapped_column(
@@ -32,6 +35,7 @@ class Order(Base):
 
 
 class OrderItem(Base):
+    """Позиция заказа (mapped class)."""
     __tablename__ = 'order_item'
 
     product_id: Mapped[int] = mapped_column(

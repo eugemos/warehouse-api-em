@@ -27,13 +27,11 @@ OredrCreationTime = Annotated[
 
 class BaseOrder(BaseModel):
     """Базовая информация о заказе"""
-
     items: list[OrderItem]
 
 
 class FullOrder(BaseOrder):
     """Полная информация о заказе"""
-
     id: OrderId
     created_at: OredrCreationTime
     status: OrderStatus
@@ -41,30 +39,25 @@ class FullOrder(BaseOrder):
 
 class CreateOrderRequest(BaseOrder):
     """Запрос на создание заказа"""
-
     pass
 
 
 class CreateOrderResponse(FullOrder):
     """Ответ на запрос на создание заказа"""
-
     pass
 
 
 class ListOrdersResponse(RootModel):
     """Ответ на запрос о получении списка заказов"""
-
     root: list[FullOrder]
 
 
 class GetOrderResponse(BaseOrder):
     """Ответ на запрос о получении информации о заказе"""
-
     created_at: OredrCreationTime
     status: OrderStatus
 
 
 class UpdateOrderStatusResponse(GetOrderResponse):
     """Ответ на запрос на изменение состояния заказа"""
-
     pass

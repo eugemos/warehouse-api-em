@@ -9,6 +9,8 @@ from app.repos import OrderRepo, ProductRepo
 
 
 class OrderService:
+    """Сервис для работы с заказами."""
+
     def __init__(
         self,
         order_repo: OrderRepo = Depends(OrderRepo),
@@ -20,6 +22,7 @@ class OrderService:
     async def create(
         self, data: schemas.CreateOrderRequest
     ) -> schemas.CreateOrderResponse:
+        """Создать заказ"""
         errors = []
         items_data = []
         for item in data.items:
@@ -55,14 +58,19 @@ class OrderService:
         )
 
     async def get_all(self) -> list[Order]:
+        """Получить все заказы"""
         return await self._order_repo.get_all()
 
     async def get_or_error(self, id: int) -> Order:
+        """Получить заказ по его id. Если заказ не существует,
+        то возбудить исключение.
+        """
         return await self._order_repo.get_or_error(id)
 
     async def update_status(
         self, id: int, new_status: OrderStatus
     ) -> Order:
+        """Изменить статус заказа."""
         return await self._order_repo.update(
             id, dict(status=new_status)
         )

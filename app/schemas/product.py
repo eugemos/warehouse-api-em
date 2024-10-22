@@ -55,7 +55,6 @@ ProductAmount = Annotated[
 
 class BaseProduct(BaseModel):
     """Базовая информация о товаре"""
-
     name: ProductName
     description: ProductDescription = None
     price: ProductPrice
@@ -64,37 +63,31 @@ class BaseProduct(BaseModel):
 
 class FullProduct(BaseProduct):
     """Полная информация о товаре"""
-
     id: ProductId
 
 
 class CreateProductRequest(BaseProduct):
     """Запрос на создание товара"""
-
     pass
 
 
 class CreateProductResponse(FullProduct):
     """Отет на запрос на создание товара"""
-
     pass
 
 
 class ListProductsResponse(RootModel):
     """Ответ на запрос о получении списка товаров"""
-
     root: list[FullProduct]
 
 
 class GetProductResponse(BaseProduct):
     """Ответ на запрос о получении информации о товаре"""
-
     pass
 
 
 class UpdateProductRequest(BaseModel):
     """Запрос на изменение информации о товаре"""
-
     name: ProductName | None = None
     description: ProductDescription = None
     price: ProductPrice | None = None
@@ -105,5 +98,4 @@ class UpdateProductRequest(BaseModel):
 
 class UpdateProductResponse(BaseProduct):
     """Ответ на запрос на изменение информации о товаре"""
-
     pass
