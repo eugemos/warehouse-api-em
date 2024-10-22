@@ -19,6 +19,7 @@ async def create_order(
     request_body: schemas.CreateOrderRequest,
     order_service: OrderService = Depends(OrderService),
 ):
+    """Создать заказ"""
     return await order_service.create(request_body)
 
 
@@ -29,27 +30,32 @@ async def create_order(
 async def list_orders(
     order_service: OrderService = Depends(OrderService),
 ) -> list[models.Order]:
+    """Получить список заказов"""
     return await order_service.get_all()
 
 
 @router.get(
     '/{id}',
     response_model=schemas.GetOrderResponse,
+    responses={404: {}},
 )
 async def get_order(
     id: int,
     order_service: OrderService = Depends(OrderService),
 ) -> models.Order:
+    """Получить информацию о заказе"""
     return await order_service.get_or_error(id)
 
 
 @router.patch(
     '/{id}/status',
     response_model=schemas.GetOrderResponse,
+    responses={404: {}},
 )
 async def update_order_state(
     id: int,
     new_status: OrderStatus = Body(),
     order_service: OrderService = Depends(OrderService),
 ) -> models.Order:
+    """Изменить состояние заказа"""
     return await order_service.update_status(id, new_status)
