@@ -1,13 +1,12 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from app.core.types import DBType
-
 
 class Settings(BaseSettings):
     """Настройки приложения"""
     app_title: str = 'API для управления складом'
     test_mode: bool = False
-    db_type: DBType = DBType.SQLITE
+    # db_type: DBType = DBType.SQLITE
+    sqlite_db: str = ''
     postgres_db: str = 'warehouse'
     postgres_user: str = 'warehouse-api'
     postgres_password: str = 'password'
@@ -21,14 +20,14 @@ class Settings(BaseSettings):
         if self.test_mode:
             return 'sqlite+aiosqlite:///:memory:'
 
-        if self.db_type == DBType.POSTGRESQL:
-            return (
-                'postgresql+asyncpg://'
-                f'{self.postgres_user}:{self.postgres_password}@'
-                f'{self.db_host}:{self.db_port}/{self.postgres_db}'
-            )
+        if self.sqlite_db:
+            return f'sqlite+aiosqlite:///{self.sqlite_db}'
 
-        return 'sqlite+aiosqlite:///./warehouse.db'
+        return (
+            'postgresql+asyncpg://'
+            f'{self.postgres_user}:{self.postgres_password}@'
+            f'{self.db_host}:{self.db_port}/{self.postgres_db}'
+        )
 
 
 settings = Settings()

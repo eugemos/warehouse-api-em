@@ -6,9 +6,3 @@ class OrderStatus(enum.Enum):
     PROCESSING = 'обработка'
     SENT = 'отправлен'
     DELIVERED = 'доставлен'
-
-
-class DBType(enum.StrEnum):
-    """Тип используемой БД"""
-    POSTGRESQL = 'pg'
-    SQLITE = 'sqlite'
