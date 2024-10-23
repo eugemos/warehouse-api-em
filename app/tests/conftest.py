@@ -5,7 +5,7 @@ import pytest
 
 from app.core.config import settings
 
-settings.database_url = 'sqlite+aiosqlite:///:memory:'
+settings.test_mode = True
 
 from app.core.db import engine
 from app.main import app
